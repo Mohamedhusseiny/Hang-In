@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">HangIn</string>
+
+    <!-- Main Activity -->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forget_your_password">Forget your password?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="or">Or</string>
+    <string name="facebook">Facebook</string>
+    <string name="google">Google</string>
+    <string name="dont_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+
+    <!-- Sign Up Activity -->
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="create_account">Create Account</string>
+</resources>
