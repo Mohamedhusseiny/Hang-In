@@ -19,4 +19,18 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="create_account">Create Account</string>
     <string name="back">back</string>
+    <string name="error">Failed to register due to internet connection!</string>
+    <string name="invalid">Invalid Username or Password!\nTry again</string>
+    <string name="first_name_requirement">First Name is required</string>
+    <string name="last_name_requirement">Last Name is required</string>
+    <string name="email_requirement">Email is not valid</string>
+    <string name="phone_requirement">Phone is required</string>
+    <string name="password_requirement">Password is required</string>
+    <string name="registered">Registered successfully!\nProceed to login</string>
+    <string name="alert">Alert!</string>
+    <string name="proceed">Proceed</string>
+    <string name="congrats">Congratulations!</string>
+    <string name="already_registered">Account is already registered!</string>
+    <string name="email_tip">(Your email address will be your username)\nFormat: Username@example.com</string>
+    <string name="password_tip">Use at least 5 characters</string>
 </resources>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/img_login_back"
-    tools:context=".MainActivity">
+    tools:context=".authentication.MainActivity">
 
     <View
         android:id="@+id/view"
@@ -37,7 +37,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/back_solid_white_transparent"
-        android:drawableEnd="@drawable/ic_username"
+        android:drawableStart="@drawable/ic_username"
         android:fontFamily="@font/gotham_rounded_book"
         android:hint="@string/email"
         android:importantForAutofill="no"
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/back_solid_white_transparent"
-        android:drawableEnd="@drawable/ic_password"
+        android:drawableStart="@drawable/ic_password"
         android:fontFamily="@font/gotham_rounded_book"
         android:hint="@string/password"
         android:importantForAutofill="no"
@@ -74,6 +74,7 @@
         android:text="@string/forget_your_password"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@android:color/white"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/editText_password"
         app:layout_constraintTop_toBottomOf="@+id/editText_password" />
 
@@ -84,7 +85,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/back_solid_white"
+        android:background="@drawable/button_back_solid_white"
         android:elevation="8dp"
         android:text="@string/sign_in"
         android:textColor="@color/cyan"
@@ -142,7 +143,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/back_solid_white"
+        android:background="@drawable/button_back_solid_white"
         android:drawableStart="@drawable/ic_facebook"
         android:elevation="8dp"
         android:fontFamily="@font/gotham_rounded_medium"
@@ -161,7 +162,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/back_solid_white"
+        android:background="@drawable/button_back_solid_white"
         android:drawableStart="@drawable/ic_google_plus"
         android:elevation="8dp"
         android:fontFamily="@font/gotham_rounded_medium"
@@ -180,6 +181,7 @@
         android:text="@string/dont_have_an_account"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@android:color/white"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/button_facebook"
         app:layout_constraintTop_toBottomOf="@+id/button_facebook" />
 
@@ -191,10 +193,38 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/gotham_rounded_medium"
         android:text="@string/sign_up"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@android:color/white"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/button_google" />
 
+    <ProgressBar
+        android:id="@+id/main_progressBar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="48dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorPrimary"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_eye"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="TODO"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_password"
+        app:layout_constraintEnd_toEndOf="@+id/editText_password"
+        app:layout_constraintTop_toTopOf="@+id/editText_password"
+        app:srcCompat="@drawable/ic_eye_deactivated" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
