@@ -11,8 +11,10 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import com.example.hangin.PlaceActivity
 import com.example.hangin.R
+import com.example.hangin.network.APIClient
+import com.example.hangin.network.APIInterface
+import com.example.hangin.place.PlaceActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         editTextPassword = findViewById(R.id.editText_password)
         buttonSignIn = findViewById(R.id.button_signIn)
         imageViewEye = findViewById(R.id.imageView_eye)
-        progressBar = findViewById(R.id.main_progressBar)
+        progressBar = findViewById(R.id.place_progressBar)
     }
 
     override fun onResume() {

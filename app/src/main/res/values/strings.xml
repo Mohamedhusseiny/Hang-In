@@ -30,7 +30,15 @@
     <string name="alert">Alert!</string>
     <string name="proceed">Proceed</string>
     <string name="congrats">Congratulations!</string>
-    <string name="already_registered">Account is already registered!</string>
+    <string name="failed_register">Failed to register!</string>
     <string name="email_tip">(Your email address will be your username)\nFormat: Username@example.com</string>
     <string name="password_tip">Use at least 5 characters</string>
+    <string name="places">Workspaces</string>
+    <string name="search_tip">Search for workspace by name</string>
+    <string name="search">Search</string>
+    <string name="report">Report</string>
+    <string name="settings">Settings</string>
+    <string name="home">home</string>
+    <string name="profile">profile</string>
+
 </resources>

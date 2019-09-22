@@ -42,8 +42,8 @@
         android:hint="@string/email"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
-        android:padding="16dp"
-        android:textSize="18sp"
+        android:padding="12dp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_hangIn" />
@@ -59,8 +59,8 @@
         android:hint="@string/password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
-        android:padding="16dp"
-        android:textSize="18sp"
+        android:padding="12dp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/editText_email"
         app:layout_constraintStart_toStartOf="@+id/editText_email"
         app:layout_constraintTop_toBottomOf="@+id/editText_email" />
@@ -86,7 +86,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/button_back_solid_white"
-        android:elevation="8dp"
+        android:elevation="12dp"
         android:text="@string/sign_in"
         android:textColor="@color/cyan"
         android:textSize="18sp"
@@ -145,7 +145,7 @@
         android:layout_marginEnd="8dp"
         android:background="@drawable/button_back_solid_white"
         android:drawableStart="@drawable/ic_facebook"
-        android:elevation="8dp"
+        android:elevation="12dp"
         android:fontFamily="@font/gotham_rounded_medium"
         android:text="@string/facebook"
         android:textColor="@color/blue"
@@ -164,7 +164,7 @@
         android:layout_marginEnd="32dp"
         android:background="@drawable/button_back_solid_white"
         android:drawableStart="@drawable/ic_google_plus"
-        android:elevation="8dp"
+        android:elevation="12dp"
         android:fontFamily="@font/gotham_rounded_medium"
         android:text="@string/google"
         android:textColor="@color/red"
@@ -201,7 +201,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button_google" />
 
     <ProgressBar
-        android:id="@+id/main_progressBar"
+        android:id="@+id/place_progressBar"
         style="@style/Widget.AppCompat.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

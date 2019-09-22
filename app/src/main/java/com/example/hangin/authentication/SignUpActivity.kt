@@ -15,6 +15,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.example.hangin.R
+import com.example.hangin.network.APIClient
+import com.example.hangin.network.APIInterface
 import retrofit2.Call
 import retrofit2.Response
 
@@ -34,7 +36,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var editTextPassword: EditText
     private lateinit var editTextConfirmation: EditText
     private lateinit var buttonCreateAccount: Button
-    private lateinit var imageViewEyePassowrd: ImageView
+    private lateinit var imageViewEyePassword: ImageView
     private lateinit var imageViewEyeConfirmation: ImageView
     private lateinit var progressBar: ProgressBar
 
@@ -58,7 +60,7 @@ class SignUpActivity : AppCompatActivity() {
         editTextPassword = findViewById(R.id.signUp_editText_password)
         editTextConfirmation = findViewById(R.id.editText_confirmation)
         buttonCreateAccount = findViewById(R.id.button_createAccount)
-        imageViewEyePassowrd = findViewById(R.id.imageView_eye_password)
+        imageViewEyePassword = findViewById(R.id.imageView_eye_password)
         imageViewEyeConfirmation = findViewById(R.id.imageView_eye_confirmation)
         progressBar = findViewById(R.id.signUp_progressBar)
     }
@@ -66,14 +68,14 @@ class SignUpActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        imageViewEyePassowrd.setOnClickListener {
+        imageViewEyePassword.setOnClickListener {
             if (imageEnablePassword == 0) {
-                imageViewEyePassowrd.setImageResource(R.drawable.ic_eye_activated)
+                imageViewEyePassword.setImageResource(R.drawable.ic_eye_activated)
                 editTextPassword.transformationMethod = null
                 imageEnablePassword = 1
                 editTextPassword.setSelection(editTextPassword.text.lastIndex + 1)
             } else {
-                imageViewEyePassowrd.setImageResource(R.drawable.ic_eye_deactivated)
+                imageViewEyePassword.setImageResource(R.drawable.ic_eye_deactivated)
                 editTextPassword.transformationMethod = PasswordTransformationMethod.getInstance()
                 imageEnablePassword = 0
                 editTextPassword.setSelection(editTextPassword.text.lastIndex + 1)
@@ -125,7 +127,7 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         editTextPassword.addTextChangedListener {
-            imageViewEyePassowrd.visibility = View.VISIBLE
+            imageViewEyePassword.visibility = View.VISIBLE
         }
         editTextConfirmation.addTextChangedListener {
             imageViewEyeConfirmation.visibility = View.VISIBLE
@@ -155,7 +157,7 @@ class SignUpActivity : AppCompatActivity() {
         }
         if (isEmpty(password)) {
             editTextPassword.error = getString(R.string.password_requirement)
-            imageViewEyePassowrd.visibility = View.GONE
+            imageViewEyePassword.visibility = View.GONE
             valid = false
         }
         if (isEmpty(confirmation)) {
@@ -166,7 +168,7 @@ class SignUpActivity : AppCompatActivity() {
         if (password != confirmation) {
             editTextPassword.error = ""
             editTextConfirmation.error = ""
-            imageViewEyePassowrd.visibility = View.GONE
+            imageViewEyePassword.visibility = View.GONE
             imageViewEyeConfirmation.visibility = View.GONE
             valid = false
         }
@@ -203,7 +205,7 @@ class SignUpActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.alert))
         if (errorCode == ERROR_CODE) builder.setMessage(getString(R.string.error))
-        else builder.setMessage(getString(R.string.already_registered))
+        else builder.setMessage(getString(R.string.failed_register))
         builder.setIcon(resources.getDrawable(R.drawable.ic_alert))
         builder.setNeutralButton(getString(R.string.proceed), null)
 

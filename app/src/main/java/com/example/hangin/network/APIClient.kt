@@ -1,4 +1,4 @@
-package com.example.hangin.authentication
+package com.example.hangin.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
