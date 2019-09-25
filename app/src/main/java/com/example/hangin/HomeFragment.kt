@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
@@ -21,11 +22,12 @@ import com.example.hangin.network.APIClient
 import com.example.hangin.network.APIInterface
 import com.example.hangin.place.Place
 import com.example.hangin.place.PlaceAdapter
+import com.example.hangin.place.PlaceAdapter.RecyclerViewClickListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), RecyclerViewClickListener {
 
     companion object {
         fun newInstance(): HomeFragment = HomeFragment()
@@ -37,6 +39,8 @@ class HomeFragment : Fragment() {
     private lateinit var imageViewClose: ImageView
     private lateinit var swipeContainer: SwipeRefreshLayout
     private lateinit var constraintLayout: ConstraintLayout
+    private lateinit var layoutEmpty: ConstraintLayout
+    private lateinit var textViewTryAgain: TextView
 
     private lateinit var showSearchAnimator: Animation
     private lateinit var hideSearchAnimator: Animation
@@ -57,11 +61,14 @@ class HomeFragment : Fragment() {
         imageViewClose = view.findViewById(R.id.imageView_close)
         swipeContainer = view.findViewById(R.id.swipe_refresh_layout)
         constraintLayout = view.findViewById(R.id.constraintLayout)
+        layoutEmpty = view.findViewById(R.id.layout_empty)
+        textViewTryAgain = view.findViewById(R.id.textView_emptyBody)
 
         showSearchAnimator = AnimationUtils.loadAnimation(context, R.anim.show_swipe_left)
         hideSearchAnimator = AnimationUtils.loadAnimation(context, R.anim.hide_swipe_right)
+
         places = ArrayList()
-        // Inflate the layout for this fragment
+
         return view
     }
 
@@ -77,15 +84,18 @@ class HomeFragment : Fragment() {
             hideSearchContext()
         }
 
+        /** Try to load the recycler items again **/
+        textViewTryAgain.setOnClickListener { getPlaces() }
+
         /** Filtration the recycler elements to the searched text **/
-        editTextSearch.addTextChangedListener {
-            filterRecyclerViewBySearch(it.toString())
-        }
+        editTextSearch.addTextChangedListener { filterRecyclerViewBySearch(it.toString()) }
 
         /** Swipe Container for the recycler view **/
         swipeContainer.setOnRefreshListener {
-            placeAdapter.clear()
-            getPlaces()
+            if (recyclerView.visibility == View.VISIBLE) {
+                placeAdapter.clear()
+                getPlaces()
+            } else getPlaces()
         }
         // Configure the refreshing colors
         swipeContainer.setColorSchemeResources(R.color.colorPrimary)
@@ -94,7 +104,7 @@ class HomeFragment : Fragment() {
     private fun filterRecyclerViewBySearch(searchText: String) {
         if (!TextUtils.isEmpty(searchText)) {
             loadRecyclerView(placeAdapter.filter(searchText))
-        } else getPlaces()
+        } else loadRecyclerView(places)
     }
 
     private fun hideSearchContext() {
@@ -107,7 +117,7 @@ class HomeFragment : Fragment() {
 
             override fun onAnimationStart(p0: Animation?) {
                 hideSoftKeyboard(editTextSearch)
-                getPlaces()
+                loadRecyclerView(places)
             }
         })
         constraintLayout.startAnimation(hideSearchAnimator)
@@ -135,14 +145,15 @@ class HomeFragment : Fragment() {
     }
 
     private fun getPlaces() {
+        progressBar.visibility = View.VISIBLE
+
         val service = APIClient.retrofit.create(APIInterface::class.java)
         val call = service.getPlaces()
 
         call.enqueue(object : Callback<ArrayList<Place>> {
             override fun onFailure(call: Call<ArrayList<Place>>, t: Throwable) {
-                // TODO: set empty view
+                showEmptyView()
                 call.cancel()
-                //Toast.makeText(this@PlaceActivity, "500", Toast.LENGTH_LONG).show()
             }
 
             override fun onResponse(
@@ -150,21 +161,48 @@ class HomeFragment : Fragment() {
                 response: Response<ArrayList<Place>>
             ) {
                 if (response.code() == 200) {
-                    places = response.body()!!
-                    loadRecyclerView(places)
-                    progressBar.visibility = View.GONE
+                    if (response.body()!!.size > 0) {
+                        restoreRecyclerViewVisibility()
+                        places = response.body()!!
+                        loadRecyclerView(places)
+                        progressBar.visibility = View.GONE
+                    } else showEmptyView()
                     call.cancel()
-                } //else Toast.makeText(this@PlaceActivity, "400", Toast.LENGTH_LONG).show()
+                } else showEmptyView()
             }
-
         })
     }
 
-    private fun loadRecyclerView(places: java.util.ArrayList<Place>) {
+    private fun showEmptyView() {
+        progressBar.visibility = View.GONE
+        recyclerView.visibility = View.GONE
+        layoutEmpty.visibility = View.VISIBLE
+        swipeContainer.isRefreshing = false
+    }
+
+
+    private fun loadRecyclerView(places: ArrayList<Place>) {
         placeAdapter = PlaceAdapter(places)
         recyclerView.adapter = placeAdapter
         swipeContainer.isRefreshing = false
     }
+
+    private fun restoreRecyclerViewVisibility() {
+        if (recyclerView.visibility == View.GONE) {
+            recyclerView.visibility = View.VISIBLE
+            layoutEmpty.visibility = View.GONE
+        }
+    }
+
+//    private fun openPlaceDetailActivity(position: Int){
+//        Toast.makeText(this.context, "item $position is clicked", Toast.LENGTH_LONG).show()
+//        val place = places[position]
+//        val detailIntent = Intent(this.context, DetailActivity::class.java)
+////        detailIntent.putExtra("place", place as Serializable)
+//        startActivity(detailIntent)
+//    }
+
+    override fun recyclerViewListClicked(v: View, position: Int) {}
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)

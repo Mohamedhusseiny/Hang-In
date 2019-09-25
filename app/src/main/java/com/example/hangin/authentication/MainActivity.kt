@@ -120,11 +120,17 @@ class MainActivity : AppCompatActivity() {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 if (response.code() == 200) {
                     // TODO: Use auth-token for user profile
-                    val placeIntent = Intent(this@MainActivity, PlaceActivity::class.java)
-                    startActivity(placeIntent)
+                    openPlacesActivity()
                 } else showErrorAlert(INVALID_CODE)
             }
         })
+    }
+
+    private fun openPlacesActivity() {
+        val placeIntent = Intent(this@MainActivity, PlaceActivity::class.java)
+        placeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(placeIntent)
+        finish()
     }
 
     private fun showErrorAlert(errorCode: Int) {

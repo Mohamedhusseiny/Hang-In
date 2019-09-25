@@ -7,7 +7,11 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hangin.R
 
-class PlaceAdapter(private var places: ArrayList<Place>) : RecyclerView.Adapter<PlaceHolder>() {
+
+class PlaceAdapter(
+    private var places: ArrayList<Place>
+) : RecyclerView.Adapter<PlaceHolder>() {
+
     override fun onBindViewHolder(holder: PlaceHolder, position: Int) {
         val item = places[position]
         holder.bindLayout(item)
@@ -15,7 +19,7 @@ class PlaceAdapter(private var places: ArrayList<Place>) : RecyclerView.Adapter<
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceHolder {
         val inflatedView = parent.inflate(R.layout.item_place, false)
-        return PlaceHolder(inflatedView)
+        return PlaceHolder(inflatedView, places)
     }
 
     private fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
@@ -36,5 +40,9 @@ class PlaceAdapter(private var places: ArrayList<Place>) : RecyclerView.Adapter<
             }
         }
         return filteredPlaces
+    }
+
+    interface RecyclerViewClickListener {
+        fun recyclerViewListClicked(v: View, position: Int)
     }
 }

@@ -8,7 +8,7 @@ import com.example.hangin.authentication.MainActivity
 
 class SplashActivity : AppCompatActivity() {
 
-    private val SPLASH_DELAY: Long = 3000
+    private val SPLASH_DELAY: Long = 2000
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
     override fun onCreate(savedInstanceState: Bundle?) {

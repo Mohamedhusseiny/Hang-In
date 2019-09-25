@@ -20,7 +20,7 @@ class PlaceActivity : AppCompatActivity() {
                     openFragment(HomeFragment.newInstance())
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.nav_more -> {
+                R.id.nav_profile -> {
                     openFragment(ProfileFragment.newInstance())
                     return@OnNavigationItemSelectedListener true
                 }
@@ -32,16 +32,34 @@ class PlaceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_place)
 
-        // TODO: Stop reloading when select another item
+        // TODO: Stop reloading when select another item from bottom navigation
         bottomNavigation = findViewById(R.id.navigationView)
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        bottomNavigation.selectedItemId = R.id.nav_home
+        setupNavigation()
     }
 
     private fun openFragment(fragment: Fragment) {
+        supportFragmentManager.popBackStack()
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
+    private fun setupNavigation() {
+        bottomNavigation.selectedItemId = R.id.nav_home
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupNavigation()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (bottomNavigation.selectedItemId == R.id.nav_home) {
+            finish()
+        } else onResume()
+    }
+
 }
